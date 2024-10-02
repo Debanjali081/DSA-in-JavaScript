@@ -56,20 +56,29 @@ console.log(countDigits(-1211413131)); // 10
 ### Question 4: Check if a number is palindrome
 
 ```javascript
-let isPalindrome = function(x) {
-    let copyNum = x, reverseNum = 0;
-
-    while(copyNum > 0){
-        const lastDigit = copyNum % 10;
+function isPalindrome(num) {
+    // Edge case: negative numbers cannot be palindromes
+    if (num < 0) return false;
+    
+    // Edge case: numbers ending in 0 are not palindromes unless the number is 0
+    if (num > 0 && num % 10 === 0) return false;
+    
+    let reverseNum = 0;
+    
+    // Reverse half of the digits and stop when reverseNum is greater than or equal to num
+    while (num > reverseNum) {
+        let lastDigit = num % 10;
         reverseNum = reverseNum * 10 + lastDigit;
-        copyNum = Math.floor(copyNum / 10);
+        num = Math.floor(num / 10);
     }
+    
+    // If the length of the number is odd, reverseNum will have one extra digit (we can remove the middle digit by dividing by 10)
+    return num === reverseNum || num === Math.floor(reverseNum / 10);
+}
 
-    return x === reverseNum;
-};
+console.log(isPalindrome(121));  // true
+console.log(isPalindrome(123));  // false
 
-console.log(isPalindrome(121)); // true
-console.log(isPalindrome(1234)); // false
 ```
 
 ### Question 5: Find nth Fibonacci number
